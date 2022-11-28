@@ -57,7 +57,7 @@ def solve(pools):
     model.solve()
 
     #Second solution
-    model += sum([group[1] * x[i] for i, group in enumerate(pools)])  # Objective function
+    model += sum([abs(group[1]) * x[i] for i, group in enumerate(pools)])  # Objective function
     for i, group in enumerate(pools):
         model += group[1] * x[i] <= obj.value(), f"minimax_2_group_{i}"
     model.solve()
@@ -72,7 +72,7 @@ def prepare(df, lb):
 
 
 if __name__ == "__main__":
-    athletes = pd.read_csv('atleti.csv', sep=',')
+    athletes = pd.read_csv('athletes.csv', sep=',')
     athletes["Peso"] = to_int(athletes["Peso"])
     athletes["Idx"] = range(athletes.shape[0])
 
